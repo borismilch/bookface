@@ -1,0 +1,27 @@
+{
+  "name": "lliiilliilliill",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon index.js",
+    "client": "npm run dev --prefix client",
+    "dev": "concurrently \"npm run client\" \"npm run server\" "
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^6.5.1",
+    "dotenv": "^10.0.0",
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "apollo-client": "^2.6.10",
+    "apollo-server": "^3.5.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "mongoose": "^6.1.3",
+    "rxjs": "^7.5.1"
+  }
+}

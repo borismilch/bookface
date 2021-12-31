@@ -1,0 +1,10 @@
+
+export { GET_COMMENTS, ADD_COMMENT, DELETE_COMMENT, UPDATE_COMMENT } from './queries/comments'
+
+export { GET_FRIENDS, GET_FRIEND_REQUESTS, REJECT_FRIEND_REQUEST, SEND_FRIENDSHIP_REQUEST, GET_FRIEND_REQUESTS_METADATA } from './queries/frends'
+
+export { LIKE_POST } from  './queries/likes'
+
+export { ADD_POST, GET_POSTS, GET_POSTS_IMAGES, GET_SINGLE_POST } from './queries/post'
+
+export { CONFIRM_USER_NAME, GET_CURRENT_USER, GET_USER_DATA, MUTE_USER, UPDATE_USER_IMAGE } from './queries/user'
