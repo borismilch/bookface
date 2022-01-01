@@ -11,13 +11,13 @@ const ProfileSelect = () => {
 
       <span className='hover:bg-gray-200 text-gray-600 select_tab'>Information</span>
 
-      <span className='hover:bg-gray-200 text-gray-600 select_tab'>Friends</span>
+      <span className='hover:bg-gray-200 text-gray-600 select_tab hidden sm:flex'>Friends</span>
 
-      <span className='hover:bg-gray-200 text-gray-600 select_tab'>Photos</span>
+      <span className='hover:bg-gray-200 text-gray-600 select_tab hidden md:flex'>Photos</span>
 
-      <span className='hover:bg-gray-200 text-gray-600 select_tab'>Videos</span>
+      <span className='hover:bg-gray-200 text-gray-600 select_tab hidden md:flex '>Videos</span>
 
-      <span className='hover:bg-gray-200 text-gray-600 select_tab'>Visits</span>
+      <span className='hover:bg-gray-200 text-gray-600 select_tab hidden md:flex'>Visits</span>
 
     </div>
 

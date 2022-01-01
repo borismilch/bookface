@@ -6,14 +6,14 @@ import { ISidebarRow } from '../../../models/models'
 import sidebarData from '../../../utils/HeadrItems'
 import FriendsSidebarItem from './FriendsSidebarItem'
 
+import SearchInput from '../../chatengine/SearchInput'
+import SidebarContainer from '../containers/SidebarContainer'
+
 const FriendsSidebar = () => {
   
   return (
-    <>
-     <div className='w-[360px]' />
+    <SidebarContainer>
     
-      <div className='flex-col fixed top-12 h-screen left-0 p-3 max-w-[340px] bg-white w-full hidden lg:flex border-r border-gray-300 shadow-md'>
-
       <div className='flex flex-col '>
 
         <div className='flex items-center justify-between py-3'>
@@ -27,6 +27,8 @@ const FriendsSidebar = () => {
           </div>
 
         </div>
+
+        <SearchInput placeholder='Search for friends'/>
         
         
 
@@ -42,8 +44,7 @@ const FriendsSidebar = () => {
 
       </div>
 
-    </div>
-    </>
+    </SidebarContainer>
   )
 }
 

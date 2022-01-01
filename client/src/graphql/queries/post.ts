@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
 export const ADD_POST = gql`
-mutation Mutation($image: String, $body: String, $userId: String, $userImg: String) {
- addPost(image: $image, body: $body, userId: $userId, userImg: $userImg) {
+mutation Mutation($image: String, $body: String, $userId: String, $userImg: String, $groupId: String) {
+ addPost(image: $image, body: $body, userId: $userId, userImg: $userImg, groupId: $groupId   ) {
    image
    body
    userId

@@ -23,7 +23,7 @@ const CommentList: React.FC<{postId: string, showAll?: boolean }> = ({postId, sh
   const filteredComments: IComment[] = isShown ? comments!.getComments : comments!.getComments.slice(0, 1)
 
   return (
-    <div className='flex flex-col gap-2 p-3 px-8'>
+    <div className='flex flex-col gap-2 p-3 px-4 md:px-6'>
 
      {
       (showAll ?  comments!.getComments :  filteredComments).map(comment => (

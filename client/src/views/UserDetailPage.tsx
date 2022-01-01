@@ -43,25 +43,25 @@ const UserDetailPage = () => {
   if (error) { return ( <p>Error</p> ) }
 
   return (
-    <div className='flex flex-col w-full min-h-screen bg-gray-200'>
+    <div className='flex flex-col w-full min-h-screen bg-gray-200 '>
 
       <Header />
 
-      <div className='flex '>
+      <div className='flex'>
          
       <ChatSidebar >
        <ChatsidebarHeader title='Рекоммедаци' /> 
          <RecimendationsList /> 
        </ChatSidebar>
 
-       <div  className='bg-gray-100 w-full'>
+       <div className='bg-gray-100 w-full ml-auto'>
 
        <div className='flex flex-col w-full max-w-[940px] mx-auto'>
         <UserProfileBanner user={user} />
 
-        <div className='flex gap-6 mt-7'>
+        <div className='flex flex-col md:flex-row gap-6 mt-7  px-[10px]'>
 
-          <div className='flex flex-col flex-[0.40]'>
+          <div className='flex flex-col flex-grow flex-[0.40]'>
 
             <div className='p-4 bg-white shadow-md rounded-xl pb-7'>
               
@@ -75,7 +75,7 @@ const UserDetailPage = () => {
 
           </div>
 
-          <div className='flex-[0.60]'>
+          <div className='flex-[0.60] flex-grow'>
 
            <div className='p-4 flex items-center justify-between bg-white shadow-md rounded-xl'>
               

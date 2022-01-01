@@ -29,11 +29,11 @@ module.exports = {
       const reqUser = await UserModel.findOne({ email: requestEmail })
       const user = await UserModel.findOne({ email: userEmail })
 
-      console.log(user,reqUser)
+      console.log(user.friendRequests,reqUser.friendRequests)
 
       if ((await reqUser.friendRequests || []).find(item => item === userEmail)) {
-        await reqUser.friendRequests.filter(item => item !== userEmail)
-        await user.yourSendedFriendReq.filter(item => item !== requestEmail)
+        reqUser.friendRequests = await reqUser.friendRequests.filter(item => item !== userEmail)
+        user.yourSendedFriendReq = await user.yourSendedFriendReq.filter(item => item !== requestEmail)
        
       } else {
         await reqUser.friendRequests.push(userEmail)

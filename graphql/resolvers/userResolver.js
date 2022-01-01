@@ -1,5 +1,8 @@
 
+const PostModel = require('../../models/PostModel')
 const UserModel = require('../../models/UserModel')
+const GroupModel = require('../../models/GroupModel')
+
 
 module.exports = {
   Query: {
@@ -19,8 +22,32 @@ module.exports = {
       }
 
       return user
+    },
+
+    changeUserImage: async (_, { email, picture }) => await UserModel.findOneAndUpdate({ email }, { picture }),
+
+    changeBgPicture: async (_, { email, bgPicture }) =>  await UserModel.findOneAndUpdate({ email }, { bgPicture }),
+
+    addGroupCreated: async (_, { email, groupId }) => {
+      const user = UserModel.findOne({email})
+
+     user.groupsCreated ?  await user.groupsCreated.push(groupId) :
+
+     user.groupsCreated = [ groupId ]
+
+      await user.save()
+
+      return user
     }
     
   },
+
+  User: {
+    myGroups: async ({groupsCreated}) => {
+      const groups = await GroupModel.find()
+
+      return groups.filter(group => groupsCreated.includes(group._id))
+    }
+  }
 
 }

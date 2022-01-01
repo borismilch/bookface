@@ -1,4 +1,5 @@
 import { User } from "@auth0/auth0-react";
+import { ChangeEvent } from "react";
 
 export interface CommentUser {
   username: string
@@ -42,6 +43,7 @@ export interface IPost {
   commentCount: number
   userImg: string
   user: { username: string, email: string }
+  groupId: String
 }
 
 export interface CommentContextParams {
@@ -66,3 +68,18 @@ export interface ExtendedUser extends User {
 }
 
 export interface IPhoto { image: string, _id: string }
+
+export interface ICreateGroupContextProps {title: string, changeHandler: (e:ChangeEvent<HTMLInputElement>) => void, createGroup: () => void}
+
+export interface IGroup {
+  bgPicture: string,
+  picture: string,
+  customers: string[],
+  title: string,
+  postsIds: string[]
+  _id?: string
+  creatorId: string
+
+  users?: User[]
+  creator?: User
+}

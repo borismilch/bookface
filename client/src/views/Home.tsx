@@ -13,6 +13,10 @@ const Home = () => {
         <div className='flex'>
           <Sidebar />
           <Feed />
+
+          <div className='w-[250px] hidden xl:flex' />
+
+         
           <Widgets />
         </div>
         

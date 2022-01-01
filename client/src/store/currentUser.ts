@@ -7,6 +7,12 @@ class CurrentUserState {
   yourFriendReqs = observable([]) as string[]
   friends = observable([]) as string[]
 
+
+  picture = '' as string
+  bgPicture = '' as string
+  username = '' as string
+  
+
   email = ''
   isLoadedUser = false as boolean
 
@@ -36,6 +42,14 @@ class CurrentUserState {
 
   setFriends (val: string[]) {
     this.friends = val
+  }
+
+  setPicture (val: string) {
+    this.picture = val
+  }
+
+  setBgPicture (val: string) {
+    this.bgPicture = val
   }
 
 }

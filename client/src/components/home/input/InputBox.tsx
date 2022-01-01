@@ -14,14 +14,14 @@ import { storage } from '../../../firebase'
 
 import { ADD_POST, GET_POSTS } from '../../../graphql/queries'
 
-const InputBox = () => {
+const InputBox: React.FC<{groupId?: string}> = ({groupId}) => {
 
   const [img, setImg] = useState<string>('')
   const [title, setTitle] = useState<string>('')
 
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const { user, isLoading, getIdTokenClaims } = useAuth0()
+  const { user, getIdTokenClaims } = useAuth0()
 
   const  [addPost]  = useMutation(ADD_POST)
 
@@ -63,9 +63,11 @@ const InputBox = () => {
     try {
 
       addPost({
-        variables: { "image": img,  "body": title, "userId": user!.email, userImg: user!.picture },
+        variables: { "image": img,  "body": title, "userId": user!.email, userImg: user!.picture, groupId: groupId + '' },
         refetchQueries: [GET_POSTS]
       })
+
+      
     
     } catch (e) { console.log(e) }
 

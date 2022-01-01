@@ -10,6 +10,8 @@ const { Schema, model } = require('mongoose')
   friendRequests: [String],
   yourSendedFriendReq: [String],
   friends: [String],
+  bgPicture: String,
+  groupsCreated: [String]
 
  }, { collection : 'users' })
 

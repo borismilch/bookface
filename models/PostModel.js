@@ -24,7 +24,8 @@ const schema = new Schema({
   likeCount: Number,
   commentCount: Number,
   image:String,
-  userImg: String
+  userImg: String,
+  groupId: String
 })
 
 module.exports = model('Post', schema)

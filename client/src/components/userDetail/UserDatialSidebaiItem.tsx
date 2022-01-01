@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { SyntheticEvent, useEffect } from 'react'
 import { User } from '@auth0/auth0-react'
 
 import { useHistory } from 'react-router-dom'
@@ -18,13 +18,15 @@ const UserDatialSidebaiItem: React.FC<{friend: User}> = ({friend}) => {
 
   const history = useHistory()
 
-  const sendReq = async () => {
+  const sendReq = async (e: SyntheticEvent<HTMLButtonElement>) => {
+    e.stopPropagation()
     sendFriendshipRequest({ variables: { userEmail: currentUser.email, requestEmail: friend.email } })
 
     setRequested(prev => !prev)
   }
 
-  const removeUser = () => {
+  const removeUser = (e: SyntheticEvent<HTMLButtonElement>) => {
+    e.stopPropagation()
     setMuted(true)
 
     muteUser({ variables: { userEmail: currentUser.email, mutedEmail: friend.email }, refetchQueries: [GET_CURRENT_USER, GET_FRIENDS] })

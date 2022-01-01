@@ -20,7 +20,7 @@ const RecimendationsList = () => {
 
     if (data) {
       setUsers(data.getUsers)
-      console.log(data.getUsers)
+      console.log(currentUser.mutes)
     }
 
   }, [data])

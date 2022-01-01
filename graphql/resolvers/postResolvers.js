@@ -23,9 +23,11 @@ module.exports = {
 
   },
   Mutation: {
-    async addPost (_, {image, body, userId, userImg}) {
+    async addPost (_, {image, body, userId, userImg, groupId}) {
       const nPost = { image, body, userId,  createdAt: new Date(),
-       comments: [], likes: [], likeCount: 0,  commentCount: 0, userImg }
+       comments: [], likes: [], likeCount: 0,  commentCount: 0, userImg, groupId }
+
+      console.log(nPost) 
         
       const newPost = await PostModel.create(nPost)
       await newPost.save()
@@ -56,6 +58,6 @@ module.exports = {
   },
 
   Post: { 
-    user: async  ({userId}, args) => await UserModel.findOne({ "client_id": userId })
+    user: async  ({userId}) => await UserModel.findOne({ email: userId })
   },
 }

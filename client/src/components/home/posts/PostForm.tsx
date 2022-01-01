@@ -1,6 +1,4 @@
 import React, { ChangeEvent, SyntheticEvent, useEffect } from 'react'
-
-import { useAuth0 } from '@auth0/auth0-react'
 import { useState } from 'react' 
 
 import { CameraIcon, EmojiHappyIcon } from '@heroicons/react/outline'
@@ -12,8 +10,8 @@ import { useMutation } from '@apollo/react-hooks'
 import { ADD_COMMENT, GET_COMMENTS, UPDATE_COMMENT } from '../../../graphql/queries'
 
 import { IComment } from '../../../models/models'
-
 import { useRef } from 'react'
+import currentUser from '../../../store/currentUser'
 
 const PostForm: React.FC<{postId: string}> = observer(({postId}) => {
 
@@ -23,8 +21,6 @@ const PostForm: React.FC<{postId: string}> = observer(({postId}) => {
 
   const [addComment] = useMutation(ADD_COMMENT)
   const [changeComment] = useMutation(UPDATE_COMMENT)
-
-  const { user, getIdTokenClaims } = useAuth0()
 
   useEffect (() => {
  
@@ -44,7 +40,7 @@ const PostForm: React.FC<{postId: string}> = observer(({postId}) => {
     e.preventDefault()
   
     const comment: IComment = {
-      body: message, userId: user?.email!, userImg: user?.picture!, username: user?.nickname!, createdAt: Date.now().toString()
+      body: message, userId: currentUser.email!, userImg: currentUser.picture!, username: currentUser.nickname!, createdAt: Date.now().toString()
     }
 
     if ( store.currentText ) {
@@ -66,7 +62,7 @@ const PostForm: React.FC<{postId: string}> = observer(({postId}) => {
 
       <div className='flex gap-2 items-center  w-full'>
 
-        <img src={user?.picture} alt="fff" className='avatar-sm' />
+        <img src={currentUser.picture} alt="fff" className='avatar-sm' />
 
         <form onSubmit={submitHandler} className='p-1 px-4 rounded-full bg-gray-200 items-center flex justify-between font-semibold  w-full '>
 

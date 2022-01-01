@@ -16,11 +16,18 @@ export default gql`
     sendFrienshipReq (userEmail: String, requestEmail: String ): User
 
     getFriedRequests (mutes: [String]): [User]
+
+    getGroups: [Group]
+    getGroup(id: String): Group
+
+    getGroupsByEmail (email: String): [Group]
+
+    getPostsOfGroupId (groupId: String): [Post]
    
   },
 
   type Mutation {
-    addPost (image: String, body: String, userId: String, userImg: String): Post
+    addPost (image: String, body: String, userId: String, userImg: String, groupId: String): Post
     deletePost (id: String): Post
     changePost(id: String, post: PostInput): Post
     
@@ -29,12 +36,22 @@ export default gql`
     deleteComent (commentId: String): Comment
     
     setLike (postId: String, userId: String): Like
-    getUser (email: String): [User],
+    getUser (email: String): [User]
     checkUserImage (email: String, picture: String): User
     addToMute (userEmail: String, mutedEmail: String): User
 
     rejectmRequest (userEmail: Strrng, reqEmail: String): User
     confirmRequest (userEmail: String, reqEmail: String): User
+
+    changeUserImage( email: String, picture: String ): User
+    changeBgPicture (email: String, bgPicture: String): User
+
+    createGroup(payload: GroupInput): Group
+
+    addGroupCreated (email: String, groupId: String): User
+
+    subscribeOnGroup(id: String, email: String): Group
+
 
   },
   type Post {
@@ -51,6 +68,32 @@ export default gql`
 
     user: User
 
+  }
+
+  type Group {
+    _id: String 
+    picture: String 
+    title: String
+    bgPicture: String 
+
+    customers: [String] 
+    postsIds: [String]
+
+    creatorId: String 
+    creator: User
+
+  }
+
+  input GroupInput {
+    _id: String 
+    picture: String 
+    title: String
+    bgPicture: String 
+
+    customers: [String] 
+    postsIds: [String]
+
+    creatorId: String
   }
 
   input PostInput {
@@ -71,10 +114,15 @@ export default gql`
     nickname: String
     picture: String 
     email_verified: Boolean
+    bgPicture: String
     mutes: [String]
     friendRequests: [String]
     yourSendedFriendReq: [String]
     friends: [String]
+    groupsCreated: [String]
+
+    myGroups: [Group]
+
 
   }
 

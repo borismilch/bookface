@@ -16,11 +16,18 @@ module.exports = gql`
     getUsers (mutes: [String]): [User] 
     getCurrentUser (email: String): User
     getFriedRequests (mutes: [String]): [User]
+
+    getGroups: [Group]
+    getGroup (id: String): Group
+
+    getGroupsByEmail (email: String): [Group]
+
+    getPostsOfGroupId (groupId: String): [Post]
   
   },
 
   type Mutation {
-    addPost (image: String, body: String, userId: String, userImg: String): Post
+    addPost (image: String, body: String, userId: String, userImg: String, groupId: String): Post
     deletePost (id: String): Post
     changePost(id: String, post: PostInput): Post
 
@@ -38,7 +45,16 @@ module.exports = gql`
     rejectmRequest (userEmail: String, reqEmail: String): User
     confirmRequest (userEmail: String, reqEmail: String): User
 
-  },
+    changeUserImage( email: String, picture: String ): User
+    changeBgPicture (email: String, bgPicture: String): User
+
+    createGroup(payload: GroupInput): Group
+
+    addGroupCreated (email: String, groupId: String): User
+
+    subscribeOnGroup(id: String, email: String): Group
+
+  }
 
   type Post {
     _id: ID
@@ -53,6 +69,32 @@ module.exports = gql`
     userImg: String!
 
     user: User
+
+  }
+
+  type Group {
+    _id: String 
+    picture: String 
+    title: String
+    bgPicture: String 
+
+    customers: [String] 
+    postsIds: [String]
+
+    users: [User]
+
+    creatorId: String 
+    creator: User
+  }
+
+  input GroupInput {
+    picture: String 
+    title: String
+    bgPicture: String 
+    creatorId: String
+
+    customers: [String] 
+    postsIds: [String]
 
   }
 
@@ -75,10 +117,15 @@ module.exports = gql`
     nickname: String
     picture: String 
     email_verified: Boolean
+    bgPicture: String
     mutes: [String]
     friendRequests: [String]
     yourSendedFriendReq: [String]
     friends: [String] 
+
+    myGroups: [Group]
+
+    groupsCreated: [String]
   }
 
   type Comment {

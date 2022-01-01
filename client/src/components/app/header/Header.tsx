@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import HeaderSearch from './HeaderSearch'
-import HeaderIcon from './HeaderIcon'
+import TopNavigation from './TopNavigation'
 
 import { XIcon } from '@heroicons/react/solid'
 
@@ -9,21 +9,20 @@ import { useHistory } from 'react-router-dom'
 
 import { useAuth0 } from '@auth0/auth0-react'
 import { useMutation } from '@apollo/react-hooks'
-import { UPDATE_USER_IMAGE, GET_CURRENT_USER } from '../../../graphql/queries'
+import { UPDATE_USER_IMAGE } from '../../../graphql/queries'
 import { observer } from 'mobx-react-lite'
-import { useQuery } from '@apollo/react-hooks'
+
+import DownNavigations from './DownNavigations'
 
 import currentUser from '../../../store/currentUser'
 
 import { useEffect } from 'react'
 
-import { HomeOutlineIcon, HomeFilledIcon, GroupIconFilled, UserGroupOutline, PeopleFilledIcons, PeopleOutlineIcon } from '../../../../assets/icons'
-
 import RightHeader from './RightHeader'
 
 const Header: React.FC<{tranparent?: boolean}> = ({tranparent}) => {
 
-  const { user, isLoading } = useAuth0()
+  const { user, isLoading, isAuthenticated, loginWithRedirect } = useAuth0()
   const [updateUserImage] = useMutation(UPDATE_USER_IMAGE)
 
   useEffect(() => {
@@ -32,7 +31,6 @@ const Header: React.FC<{tranparent?: boolean}> = ({tranparent}) => {
       
     }
   }, [isLoading])
-
 
   const history = useHistory()
   
@@ -70,24 +68,17 @@ const Header: React.FC<{tranparent?: boolean}> = ({tranparent}) => {
     
     { !tranparent && <HeaderSearch />}
 
-     <div className='flex justify-center items-center flex-grow '>
+      <TopNavigation transparent={!!tranparent} />
 
-   { !tranparent && <div className='flex items-center justify-between w-full max-w-[330px]'>
+      <DownNavigations />
 
-    <HeaderIcon Icon={HomeOutlineIcon} SecondIcon={HomeFilledIcon} to='/' />
-
-    <HeaderIcon Icon={UserGroupOutline} SecondIcon={GroupIconFilled} to='/friends' /> 
-
-    <HeaderIcon Icon={PeopleOutlineIcon} SecondIcon={PeopleFilledIcons} to='/groups' />
-         
-       </div>}
-       
-
-       </div>
-
-      <div>
+     { !isLoading && isAuthenticated && <div>
        <RightHeader istransparent={tranparent} />
-      </div>
+      </div>}
+
+      {
+        !isAuthenticated && <button onClick={loginWithRedirect} className='butt px-6'>Login</button> 
+      }
       
     </div>
 

@@ -22,6 +22,7 @@ export const GET_FRIEND_REQUESTS = gql`
     username
     picture
     friends
+    bgPicture
   }
 }
 `
@@ -32,6 +33,7 @@ export const GET_FRIEND_REQUESTS_METADATA = gql`
     username
     picture
     email
+    bgPicture
   }
 }`
 

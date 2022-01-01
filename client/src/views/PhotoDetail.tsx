@@ -26,18 +26,24 @@ const PhotoDetail:React.FC = () => {
   const post = data.getSinglePost     
 
   return (
-    <div className='flex h-screen bg-black'>
+    <div className='flex overflow-y-hidden h-screen bg-black'>
       <Header tranparent={true} />
 
-      <div className='flex h-full w-full  items-center justify-center'>
+      <div className='flex flex-col md:flex-row'>
+
+        <div className='flex h-full w-full items-center justify-center' style={{width: '100%'}}>
 
         <img src={post.image} className='h-full object-cover'  alt="" />
 
+        </div>
+
+        <div className=' bg-white'>
+        <PhotoSidebar post={post} />
+        </div>
+
       </div>
 
-      <div className='w-[466px] bg-white'>
-        <PhotoSidebar post={post} />
-      </div>
+    
       
     </div>
   )

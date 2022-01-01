@@ -15,7 +15,7 @@ const ChatSidebarLit = () => {
   const [friends, setFriends] = useState<User[]>([])
 
   const { data, loading } = useQuery<{getFriedRequests: User[]}>(GET_FRIEND_REQUESTS, 
-    {  variables: { mutes: ['',...currentUser.friends.slice()] } })
+    {  variables: { mutes: ['',...currentUser.friends.slice(), ...currentUser.mutes.slice()] } })
 
   useEffect(() => {
 

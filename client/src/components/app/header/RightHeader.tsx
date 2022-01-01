@@ -1,28 +1,50 @@
-import React, {useEffect } from 'react'
+import React, {useEffect, useState } from 'react'
 
-import { AcoountIcon, Bell, MessangerIcon, Apps } from '../../../../assets/icons'
+import { Bell, MessangerIcon, Apps } from '../../../../assets/icons'
 import { ExtendedUser } from '../../../models/models'
 
-import { useAuth0 } from '@auth0/auth0-react'
+import { useHistory } from 'react-router-dom'
+
+import { UserCircleIcon } from '@heroicons/react/outline'
+import HeaderSelect from './HeaderSelect'
+
+import { useAuth0, User } from '@auth0/auth0-react'
 import currentUser from '../../../store/currentUser'
 import { GET_CURRENT_USER } from '../../../graphql/queries'
 import { useQuery } from '@apollo/react-hooks'
 
 const RightHeader: React.FC<{istransparent?: boolean}> = ({istransparent}) => {
+  const history = useHistory()
 
-  const { user, isLoading, isAuthenticated, loginWithRedirect, logout } = useAuth0()
+  const [curUser, setUser] = useState<User>()
 
-  if (!currentUser.email) { return (   <button onClick={loginWithRedirect} className='butt px-6'>Login</button> ) }
+  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0()
 
-  const { data: userData } = useQuery<{ getCurrentUser: ExtendedUser }>(GET_CURRENT_USER, { variables: { email: currentUser.email } })
+  const { data: userData } = useQuery<{ getCurrentUser: ExtendedUser }>(GET_CURRENT_USER, { variables: { email: user!.email } })
+
+  const [isMenuu, setIsMenu] = useState<boolean>(false)
+
+  const setMenuBar = (val: boolean) => {
+    setIsMenu(val)
+  }
+
+  const pushHistory = () => {
+    history.push('/profile')
+  }
 
   useEffect(() => {
+    console.log(userData)
     currentUser.setLoadedUser(false)
     if (userData) {
+      setUser(userData.getCurrentUser)
       currentUser.setMutes((userData.getCurrentUser.mutes! || []))
       currentUser.setYourFriendReq ((userData.getCurrentUser.yourSendedFriendReq! || []))
       currentUser.setFriendsReqs((userData.getCurrentUser.friendRequests!) || [])
       currentUser.setFriends((userData.getCurrentUser.friends!) || [])
+      currentUser.setPicture(userData.getCurrentUser.picture!)
+      currentUser.setBgPicture(userData.getCurrentUser.bgPicture!)
+      currentUser.username = userData.getCurrentUser.username
+     
       currentUser.setLoadedUser(true)
     }
     
@@ -31,13 +53,18 @@ const RightHeader: React.FC<{istransparent?: boolean}> = ({istransparent}) => {
   return (
     <div className='flex gap-4 items-center'>
 
-
    { !istransparent && <div className='flex items-centergap-4'>
 
       { isAuthenticated && 
       ( <div className='flex  items-center gap-2'>
         <p className='font-medium text-[#212121]'>{user?.userame}</p>
-        <img onClick={()=> logout()} src={user?.picture} className='avatar' alt="" />
+        <img onClick={() => setMenuBar(!isMenuu)} src={curUser?.picture} className='avatar' alt="" />
+
+       { isMenuu && <div className='relative'>
+          <HeaderSelect changeMenuBar={setMenuBar} />
+        </div>
+        }
+
       </div> ) }
 
     </div>
@@ -47,19 +74,19 @@ const RightHeader: React.FC<{istransparent?: boolean}> = ({istransparent}) => {
          
        <div className='icon'>
            <Apps />
-         </div> 
+        </div> 
 
-         <div className='icon'>
+        <div onClick={() => history.push('/create-group')} className='icon'>
            <Bell />
-         </div>
+        </div>
 
-         <div className='icon'>
+        <div className='icon'>
            <MessangerIcon />
-         </div>
+        </div>
 
-         <div className='icon'>
-          <AcoountIcon /> 
-         </div>
+        <div onClick={pushHistory.bind(null)} className='icon'>
+          <UserCircleIcon className='h-10 w-10' /> 
+        </div>
         
 
        </div>

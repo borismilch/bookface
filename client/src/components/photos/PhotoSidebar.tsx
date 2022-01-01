@@ -13,9 +13,9 @@ const PhotoSidebar: React.FC<{post: IPost}> = ({post}) => {
 
   return (
  
-    <div className='flex flex-col relative items-center w-full h-screen  bg-white rounded-lg py-2 border-b-gray-600 pb-7'>
+    <div className='flex flex-col relative min-w-[350px]  items-center w-full h-screen  bg-white rounded-lg py-2 border-b-gray-600 pb-7'>
 
-      <div className='flex flex-col mt-[53px] h-screen w-full'>
+      <div className='flex flex-col mt-[3px] lg:mt-[53px] h-screen w-full'>
 
         <UserHeading post={post} />
 
@@ -28,7 +28,7 @@ const PhotoSidebar: React.FC<{post: IPost}> = ({post}) => {
 
         </div>
 
-        <div className='absolute bottom-0 left-0 bg-white z-10'>
+        <div className='md:absolute   md:bottom-0 left-0 bg-white z-10'>
 
           <PostForm postId={post._id} />
 

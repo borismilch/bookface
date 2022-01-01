@@ -40,6 +40,7 @@ query Query($email: String) {
     mutes
     picture
     _id
+    bgPicture
     friendRequests
     yourSendedFriendReq
     friends
@@ -54,9 +55,28 @@ query Query($email: String) {
     email
     picture
     _id
+    bgPicture
     username
     friends
   }
 
 }
+`
+export const CHANGE_USER_IMAGE = gql`
+  mutation Mutation($email: String, $picture: String) {
+  changeUserImage(email: $email, picture: $picture) {
+    email
+    _id
+  }
+}
+`
+
+export const CHANGE_BG_PICTURE = gql`
+mutation Mutation($email: String, $bgPicture: String) {
+  changeBgPicture(email: $email, bgPicture: $bgPicture) {
+    email
+    _id
+  }
+}
+
 `
